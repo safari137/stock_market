@@ -1,15 +1,79 @@
-.form-container {
-    width: 50%;
-    margin: 25px auto;
-    border: 2px solid #333;
-    padding: 25px;
-}
-
-.form-container button {
-    margin: 10px 0;
-}
-
 .footer {
     font-size: 13px;
     margin-top: 20px;
+    text-align: center;
+    color: #ddd;
+}
+
+.footer a {
+    color: white;
+}
+
+.stock {
+    background: #ffffff;
+    min-height: 150px;
+    border-left: 7px solid #ccc;
+    border-right: 15px solid #333;
+    margin-top: 10px;
+}
+
+.stock:hover {
+    border-left: 7px solid orange;
+}
+
+.green {
+    border-left: 7px solid #5cb85c !important;
+    padding-top: 55px;
+}
+
+.green button {
+    margin-top: 2px;
+    
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.description {
+    color: #777;
+}
+
+.delete {
+    text-align: right;
+    color: #aaa;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.delete:hover {
+    color: #555;
+}
+
+.main {
+    background: #333;
+    margin-top: 25px;
+}
+
+.row {
+    margin: 10px;
+}
+
+.alert {
+    margin-top: 10px;
+    padding: 5px 10px;
+}
+
+#chart_div {
+   height: 350px;
+}
+
+body {
+    background: #444;
+}
+
+h1 {
+    color : #ddd;
 }
