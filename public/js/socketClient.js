@@ -1,4 +1,4 @@
-var socket = io.connect("https://freecodecamp-safari137.c9users.io/");
+var socket = io.connect(document.location.origin);
 var chart = new ChartMaker();
 
 var date = new Date();
