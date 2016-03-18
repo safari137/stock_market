@@ -1,6 +1,9 @@
 var socket = io.connect("https://freecodecamp-safari137.c9users.io/");
 var chart = new ChartMaker();
 
+var date = new Date();
+date.setDate(date.getDate() - (365));
+
 function Socket() {
   this.send = function(tag, data) {
     socket.emit(tag, data);
@@ -9,11 +12,12 @@ function Socket() {
 
   socket.on('allStocks', function (data) {
     addAllStocks(data);
+    socket.emit('getHistory', { date : date});
   });
   
   socket.on('addStock', function(data) {
       addSingleStockToDocument(data);    
-      socket.emit('getHistory')
+      socket.emit('getHistory', { date : date});
   });
   
   socket.on('err', function(err) {
@@ -24,7 +28,7 @@ function Socket() {
   socket.on('deleteStock', function(data) {
       $("#" + data.symbol).fadeOut(1000, function() {
         $(this).remove(); });  
-        socket.emit('getHistory');
+        socket.emit('getHistory', { date : date});
   });
   
   socket.on('allHistory', function(results) {

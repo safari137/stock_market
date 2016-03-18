@@ -8,10 +8,7 @@ var stockDataController = new StockDataController();
     
     io.on('connection', function (socket) {
         stockController.getStocks(function(stocks) {
-            socket.emit('allStocks', stocks);    
-            broadcastHistory(function(history) {
-                socket.emit('allHistory', { history: history });
-            });
+            socket.emit('allStocks', stocks);
         });
           
         socket.on('addStock', function (data) {
@@ -32,14 +29,14 @@ var stockDataController = new StockDataController();
            });
         });
         
-        socket.on('getHistory', function() {
-            broadcastHistory(function(history) {
+        socket.on('getHistory', function(data) {
+            broadcastHistory(data.date, function(history) {
                 socket.emit('allHistory', { history: history });
             });
         })
     });
 
-    var broadcastHistory = function(callback) {
+    var broadcastHistory = function(date, callback) {
         var history = [];
         var stocks = stockController.getStocks(function(stocks) {
            if (stocks.length < 1) {
@@ -49,7 +46,7 @@ var stockDataController = new StockDataController();
             
             var finished = 0;
             stocks.forEach(function(stock, index, arr) {
-                stockDataController.getHistoricData(stock.symbol, "20150318", function(result) {
+                stockDataController.getHistoricData(stock.symbol, date, function(result) {
                     history.push(result);
                     finished++;
                     if (finished === arr.length) {

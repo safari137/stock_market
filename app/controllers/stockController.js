@@ -15,11 +15,16 @@ var stockController = function() {
     };
     
     this.addStock = function(stock, callback) {
-        Stock.create(stock, function(err, newStock) {
-            if (err) throw err;
-            
-            if (callback)
-                callback(newStock);
+        Stock.find({symbol: stock.symbol}, function(err, foundStock) {
+           if (err) throw err;
+           if (!foundStock.length) {
+               Stock.create(stock, function(err, newStock) {
+                if (err) throw err;
+                
+                if (callback)
+                    callback(newStock);
+                });
+           }
         });
     };
     
