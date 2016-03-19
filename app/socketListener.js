@@ -55,7 +55,7 @@ var stockDataController = new StockDataController();
                             if (a.length > b.length) return -1;
                             if (a.length === b.length) return 0;
                         });
-                        console.log('history : ' + history[0].length);
+                        
                         callback(history);  
                     }
                 });
