@@ -36,14 +36,16 @@ function Socket() {
   });
   
   function addAllStocks(data) {
-      
+      console.log('removing stocks');
+      $(".removable").remove();
       data.forEach(function(stock) {
+        console.log('adding stock');
          addSingleStockToDocument(stock);
       });
   }
   
   function addSingleStockToDocument(stock) {
-      $(".addStock").before( "<div class='stock col-md-4 col-sm-6 col-xs-12' id='" + stock.symbol + "'>" +
+      $(".addStock").before( "<div class='removable stock col-md-4 col-sm-6 col-xs-12' id='" + stock.symbol + "'>" +
                              "<div class='title col-md-2 col-sm-5 col-xs-6'>" + stock.symbol + "</div><div class='col-md-8 col-sm-2 col-xs-0'>" +
                              "</div><div class='delete col-md-2 col-sm-5 col-xs-6'>X</div>" +
                              "<div class='description col-md-12 col-sm-8 col-xs-7'>" + stock.description + "</div></div>");
