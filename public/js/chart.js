@@ -84,8 +84,8 @@ function ChartMaker() {
           if (historyData.history[row][col] === undefined)
             continue;
             
-          var closingCost =  historyData.history[row][col].close;
-          data.push(closingCost);
+          var closingPrice =  historyData.history[row][col].close;
+          data.push(closingPrice);
       }
       rowData.push(data);
     }
