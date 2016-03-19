@@ -1,15 +1,16 @@
-var socket = io.connect(document.location.origin);
-var chart = new ChartMaker();
-
-var date = new Date();
-date.setDate(date.getDate() - (365));
-
 function Socket() {
+  var socket = io.connect(document.location.origin),
+      chart = new ChartMaker(),
+      oneYear = 365,
+      date = new Date();
+  
+  date.setDate(date.getDate() - oneYear);
+  
+
   this.send = function(tag, data) {
     socket.emit(tag, data);
   }
-}
-
+  
   socket.on('allStocks', function (data) {
     addAllStocks(data);
     socket.emit('getHistory', { date : date});
@@ -35,18 +36,23 @@ function Socket() {
       chart.startHistoryChart(results);
   });
   
-  function addAllStocks(data) {
-      console.log('removing stocks');
-      $(".removable").remove();
-      data.forEach(function(stock) {
-        console.log('adding stock');
-         addSingleStockToDocument(stock);
-      });
+    var addAllStocks = function(data) {
+        $(".removable").remove();
+        data.forEach(function(stock) {
+           addSingleStockToDocument(stock);
+        });
+    }
+    
+  var addSingleStockToDocument = function(stock) {
+        $(".addStock").before( "<div class='removable stock col-md-4 col-sm-6 col-xs-12' id='" + stock.symbol + "'>" +
+                               "<div class='title col-md-2 col-sm-5 col-xs-6'>" + stock.symbol + "</div><div class='col-md-8 col-sm-2 col-xs-0'>" +
+                               "</div><div class='delete col-md-2 col-sm-5 col-xs-6'>X</div>" +
+                               "<div class='description col-md-12 col-sm-8 col-xs-7'>" + stock.description + "</div></div>");
   }
+}
+
+
+
+
+
   
-  function addSingleStockToDocument(stock) {
-      $(".addStock").before( "<div class='removable stock col-md-4 col-sm-6 col-xs-12' id='" + stock.symbol + "'>" +
-                             "<div class='title col-md-2 col-sm-5 col-xs-6'>" + stock.symbol + "</div><div class='col-md-8 col-sm-2 col-xs-0'>" +
-                             "</div><div class='delete col-md-2 col-sm-5 col-xs-6'>X</div>" +
-                             "<div class='description col-md-12 col-sm-8 col-xs-7'>" + stock.description + "</div></div>");
-  }
