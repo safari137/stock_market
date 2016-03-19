@@ -67,8 +67,9 @@ function ChartMaker() {
   }
   
   var addNames = function(callback) {
-    historyData.history.forEach(function(data) {
+    historyData.history.forEach(function(data, index, arr) {
       callback(data[0].symbol);
+      console.log("names : " + index);
     }); 
   }
   
@@ -77,18 +78,29 @@ function ChartMaker() {
     
     if (historyData.history.length < 1)
       return rowData;
-    
+      
+    console.log('history');
+    console.log(historyData);
+    console.log('end history');
+      
+    console.log("we're going to add the following rows : " + historyData.history.length);
+    var skipCount = 0;
     for (var col = 0; col<historyData.history[0].length; col++) {
       var data = [new Date(historyData.history[0][col].tradingDay)];
       for (var row = 0; row<historyData.history.length; row++) {
-          if (historyData.history[row][col] === undefined)
+          if (historyData.history[row].length <= 1) {
+            data.push(0);
             continue;
+          }
             
           var closingPrice =  historyData.history[row][col].close;
           data.push(closingPrice);
+          console.log( "data : " + data.length);
       }
       rowData.push(data);
     }
+    console.log('skips : ' + skipCount );
+    console.log(data);
     return rowData;
   }
 }

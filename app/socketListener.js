@@ -50,7 +50,13 @@ var stockDataController = new StockDataController();
                     history.push(result);
                     finished++;
                     if (finished === arr.length) {
-                        callback(history);    
+                        history = history.sort(function(a, b) {
+                            if (a.length < b.length) return 1;
+                            if (a.length > b.length) return -1;
+                            if (a.length === b.length) return 0;
+                        });
+                        console.log('history : ' + history[0].length);
+                        callback(history);  
                     }
                 });
             }); 

@@ -7,9 +7,7 @@ var stockController = function() {
             if (err) throw err;
            
             if (callback) {   
-                callback(stocks.sort(function(a, b) {
-                    return (a.length < b.length) ? 1 : -1;
-                }));
+                callback(stocks);
             }
         });
     };
